@@ -1,32 +1,64 @@
-import React, { useState } from "react"
 import Button from "./Button"
+import { enterComment, filterComment, readComment } from "@api/commentApi"
+import { AddCommentProps } from "interface"
+import React, { useEffect, useRef, useState } from "react"
 
-function AddComment() {
-  const [state, setState] = useState(false)
+function AddComment({ videoId, setCommentData }: AddCommentProps) {
+  const [isFocus, setIsFocus] = useState(false)
   const [text, setText] = useState<string>("")
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const [isSubmit, setIsSubmit] = useState(false)
 
   const handleInputFocus = () => {
-    setState(true)
+    setIsFocus(true)
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLDivElement>) => {
-    setText(e.target.innerText)
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value)
   }
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setState(false)
+    setIsFocus(false)
     setText("")
   }
 
-  const handleCommentSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    console.log("댓글 등록:", text)
+  const handleCommentSubmit = async () => {
+    await enterComment(text, videoId)
+    setIsSubmit((prevState) => !prevState)
     setText("")
   }
 
-  // review
-  // 콘솔로그는 디버깅용으로만 사용해주세요. 개발할 때 사용하시고 삭제해주세요.
+  useEffect(() => {
+    const promiseData = filterComment(videoId)
+    promiseData
+      .then((comments) => {
+        setCommentData(comments || [])
+      })
+      .catch((error) => {
+        console.error("에러 발생: ", error)
+      })
+  }, [isSubmit])
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (text === "") {
+      return
+    }
+    // review
+    // 위와 같은 보호 구문으로 중첩 if문을 줄일 수 있습니다.
+    if (e.key === "Enter") {
+      handleCommentSubmit()
+    }
+  }
+
+  // useEffect를 사용하여 텍스트가 변경될 때마다 높이를 조절합니다.
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "30px"
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }, [text])
+
   return (
     <div className="w-full pb-2">
       <div className="h-auto flex">
