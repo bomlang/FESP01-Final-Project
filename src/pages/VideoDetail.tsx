@@ -12,6 +12,16 @@ import { filterComment, readComment } from "@api/commentApi"
 function VideoDetail() {
   const location = useLocation()
   const locationRoute = location.state.item.snippet
+<<<<<<< HEAD
+=======
+  // const locationRoute = location.state?.item?.snippet || {};
+  // if (!location.state) {
+  //   // location.state가 null이면 에러가 발생하지 않도록 반환하거나 다른 처리를 수행
+  //   return <div>Invalid state</div>;
+  // }
+  // review
+  // 사용하지 않는 코드는 주석처리가 아니라 삭제해주세요.
+>>>>>>> 06e00f2 (v0.0.0 리뷰드려요. review라는 키워드를 검색하시면 찾을 수 있으실거에요.)
   const [detailData, setDetailData] = useState<VideoItem[]>([])
   const [dataVariable, setDataVariable] = useState<string[]>([])
   const [commentData, setCommentData] = useState<CommentType[]>([])

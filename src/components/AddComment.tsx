@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Button from "./Button"
 import { enterComment, filterComment, readComment } from "@api/commentApi"
 import { AddCommentProps } from "interface"
@@ -15,10 +16,26 @@ function AddComment({ videoId, setCommentData }: AddCommentProps) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
+=======
+import React, { useState } from "react"
+import Button from "./Button"
+
+function AddComment() {
+  const [state, setState] = useState(false)
+  const [text, setText] = useState<string>("")
+
+  const handleInputFocus = () => {
+    setState(true)
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLDivElement>) => {
+    setText(e.target.innerText)
+>>>>>>> 06e00f2 (v0.0.0 리뷰드려요. review라는 키워드를 검색하시면 찾을 수 있으실거에요.)
   }
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+<<<<<<< HEAD
     setIsFocus(false)
     setText("")
   }
@@ -57,7 +74,20 @@ function AddComment({ videoId, setCommentData }: AddCommentProps) {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
   }, [text])
+=======
+    setState(false)
+    setText("")
+  }
 
+  const handleCommentSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    console.log("댓글 등록:", text)
+    setText("")
+  }
+>>>>>>> 06e00f2 (v0.0.0 리뷰드려요. review라는 키워드를 검색하시면 찾을 수 있으실거에요.)
+
+  // review
+  // 콘솔로그는 디버깅용으로만 사용해주세요. 개발할 때 사용하시고 삭제해주세요.
   return (
     <div className="w-full pb-2">
       <div className="h-auto flex">

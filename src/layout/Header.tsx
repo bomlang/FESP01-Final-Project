@@ -32,4 +32,6 @@ function Header() {
   )
 }
 
+// review
+// getData 보다는 getPopularVideos 같은 이름이 명확할 것 같아요.
 export default Header
