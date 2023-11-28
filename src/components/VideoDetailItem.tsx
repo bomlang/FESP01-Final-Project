@@ -1,26 +1,26 @@
-import { VideoSnippet } from "interface";
-import { useState } from "react";
+import { VideoSnippet } from "interface"
+import { useState } from "react"
 
 export interface VideoDetailItemProps {
-  item: VideoSnippet;
-  imageUrl: string;
+  item: VideoSnippet
+  imageUrl: string
 }
 
 function VideoDetailItem({ item, imageUrl }: VideoDetailItemProps) {
-  const [viewMore, setViewMore] = useState(false);
+  const [viewMore, setViewMore] = useState(false)
 
   const viewDescription = () => {
     if (!viewMore) {
-      const firstLine = item.description.split("\n")[0];
-      return <span className=" block mb-2">{firstLine}</span>;
+      const firstLine = item.description.split("\n")[0]
+      return <span className=" block mb-2">{firstLine}</span>
     } else {
       return (
         <span className="whitespace-pre-line block mb-2">
           {item.description}
         </span>
-      );
+      )
     }
-  };
+  }
 
   return (
     <>
@@ -44,7 +44,7 @@ function VideoDetailItem({ item, imageUrl }: VideoDetailItemProps) {
         </span>
       </li>
     </>
-  );
+  )
 }
 
-export default VideoDetailItem;
+export default VideoDetailItem

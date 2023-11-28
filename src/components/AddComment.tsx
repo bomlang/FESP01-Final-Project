@@ -1,30 +1,32 @@
-import React, { useState } from "react";
-import Button from "./Button";
+import React, { useState } from "react"
+import Button from "./Button"
 
 function AddComment() {
-  const [state, setState] = useState(false);
-  const [text, setText] = useState<string>("");
+  const [state, setState] = useState(false)
+  const [text, setText] = useState<string>("")
 
   const handleInputFocus = () => {
-    setState(true);
-  };
+    setState(true)
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLDivElement>) => {
-    setText(e.target.innerText);
-  };
+    setText(e.target.innerText)
+  }
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setState(false);
-    setText("");
-  };
+    e.preventDefault()
+    setState(false)
+    setText("")
+  }
 
   const handleCommentSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log("댓글 등록:", text);
-    setText("");
-  };
+    e.preventDefault()
+    console.log("댓글 등록:", text)
+    setText("")
+  }
 
+  // review
+  // 콘솔로그는 디버깅용으로만 사용해주세요. 개발할 때 사용하시고 삭제해주세요.
   return (
     <div className="w-full pb-2">
       <div className="max-h-[142px] flex">
@@ -79,7 +81,7 @@ function AddComment() {
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddComment;
+export default AddComment

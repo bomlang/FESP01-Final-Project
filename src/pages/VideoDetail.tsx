@@ -18,7 +18,8 @@ function VideoDetail() {
   //   // location.state가 null이면 에러가 발생하지 않도록 반환하거나 다른 처리를 수행
   //   return <div>Invalid state</div>;
   // }
-
+  // review
+  // 사용하지 않는 코드는 주석처리가 아니라 삭제해주세요.
   const [detailData, setDetailData] = useState<VideoItem[]>([])
   const [dataVariable, setDataVariable] = useState<string[]>([])
 
