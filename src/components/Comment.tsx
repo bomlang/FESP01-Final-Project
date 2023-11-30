@@ -1,14 +1,13 @@
-import { CommentProps } from "interface"
 import { useState } from "react"
+import { CommentProps } from "interface"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 import formatDateDifference from "@api/formatDateDifference"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { deleteComment, modifyComment } from "@api/commentApi"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faThumbsDown, faThumbsUp } from "@fortawesome/free-regular-svg-icons"
 
-function Comment({ text, date, commentId }: CommentProps) {
+function Comment({ text, date, commentId, optionBtnCallback }: CommentProps) {
   const [count, setCount] = useState(0)
-  const [isDelete, setIsDelete] = useState(false)
   const [modifyChecked, setModifyChecked] = useState(false)
   const [isBarsVisible, setIsBarsVisible] = useState(false)
   const [isButtonsVisible, setIsButtonsVisible] = useState(false)
@@ -24,35 +23,23 @@ function Comment({ text, date, commentId }: CommentProps) {
     setIsButtonsVisible(!isButtonsVisible)
   }
 
-  const handleEditClick = async () => {
+  const handleEditClick = () => {
     setModifyChecked((prevBtn) => !prevBtn)
-    setIsDelete((prevState) => !prevState)
     if (!modifyChecked) return
-    else await modifyComment(commentId, modifyCommentText)
+    else modifyComment(commentId, modifyCommentText)
+    optionBtnCallback()
     alert("댓글이 수정되었습니다! 🛠️")
-    setIsDelete((prevState) => !prevState)
   }
 
   const handleDeleteClick = async () => {
     await deleteComment(commentId)
-    setIsDelete((prevState) => !prevState)
+    optionBtnCallback()
     alert("댓글이 삭제되었습니다!")
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setModifyCommentText(e.target.value)
   }
-
-  // useEffect(() => {
-  //   const promiseData = filterComment(videoId, 0, 2)
-  //   promiseData
-  //     .then((comments) => {
-  //       setCommentData(comments || [])
-  //     })
-  //     .catch((error) => {
-  //       console.error("에러 발생: ", error)
-  //     })
-  // }, [isDelete])
 
   return (
     <div className="w-full">
